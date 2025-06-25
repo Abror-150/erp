@@ -3,15 +3,15 @@
 :root {
   --clr-gold: #bc8e5b;
 }
- .ant-btn-primary{
-  background-color: var(--clr-gold);
-
-} 
-.ant-input-affix-wrapper-focused, .ant-input-outlined:hover{
+.ant-btn-primary {
+  background-color: var(--clr-gold) !important;
+}
+.ant-input-affix-wrapper-focused,
+.ant-input-outlined:hover {
   border-color: var(--clr-gold) !important;
   box-shadow: 0 0 0 2px #bc8f5b2d !important;
 }
 
 .ant-input-outlined:focus {
   box-shadow: 0 0 0 2px #bc8f5b4b !important;
-} 
+}
