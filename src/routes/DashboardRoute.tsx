@@ -4,8 +4,9 @@ import type { DashboarRouteType } from "../types/DashboardRouteType";
 const DashboardRoute = () => {
   return (
     <Routes>
-      {DashboardRouteLists.map((item: DashboarRouteType) => <Route path={item.path} element={item.element}/>
-      )}
+      {DashboardRouteLists.map((item: DashboarRouteType) => (
+        <Route key={item.id} path={item.path} element={item.element} />
+      ))}
     </Routes>
   );
 };

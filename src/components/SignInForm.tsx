@@ -2,8 +2,9 @@ import React, { useContext, useState } from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import { Context } from "../context/Context";
-import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import { Login } from "../services/auth";
+import { useNavigate } from "react-router-dom";
 
 interface ValueType {
   username: string;
@@ -11,29 +12,21 @@ interface ValueType {
 }
 
 const SignForm: React.FC = () => {
-  const [isLoading, setIsLoading] = useState<Boolean>(false);
   const { setToken } = useContext(Context);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [disable, setDisable] = useState<boolean>(false);
 
   const onFinish = (values: ValueType) => {
     setIsLoading(true);
-    axios.get("http://localhost:3000/users").then((data) => {
-      const isUser = data.data.some(
-        (item: ValueType) =>
-          item.username == values.username && item.password == values.password
-      );
-      setTimeout(() => {
-        if (isUser) {
-          setTimeout(() => {
-            setToken(true);
-            location.pathname = "/";
-          }, 1000);
-        } else {
-          toast.error("foydalanuvchi topilmadi");
-        }
-        setIsLoading(false);
-      }, 1000);
-    });
+    Login(values, setIsLoading, setToken);
   };
+  function handlePasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
+    if (e.target.value.length >= 8) {
+      setDisable(false);
+    } else {
+      setDisable(true);
+    }
+  }
 
   return (
     <>
@@ -60,6 +53,8 @@ const SignForm: React.FC = () => {
           rules={[{ required: true, message: "Please input your password!" }]}
         >
           <Input.Password
+            onChange={handlePasswordChange}
+            minLength={8}
             allowClear
             size="large"
             prefix={<LockOutlined />}
@@ -70,6 +65,7 @@ const SignForm: React.FC = () => {
         <Form.Item shouldUpdate>
           {() => (
             <Button
+              disabled={disable}
               className="text-[var(--clr-gold)] border-[var(--clr-gold)] hover:bg-[var(--clr-gold)] hover:text-white"
               loading={isLoading}
               size="large"
