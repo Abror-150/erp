@@ -1,5 +1,11 @@
 import { Home } from "../pages/Auth";
-import { Groups, Major, Students, Teachers } from "../pages/Dashboard";
+import {
+  Groups,
+  Major,
+  MajorCreate,
+  Students,
+  Teachers,
+} from "../pages/Dashboard";
 import {
   TeamOutlined,
   UngroupOutlined,
@@ -8,6 +14,7 @@ import {
 } from "@ant-design/icons";
 import Notfound from "../pages/Dashboard/Notfound";
 import { NavLink } from "react-router-dom";
+import MajorMore from "../pages/Dashboard/MajorMore";
 export const paths = {
   home: "/",
   signIn: "/signIn",
@@ -15,6 +22,8 @@ export const paths = {
   groups: "/groups",
   students: "/students",
   teachers: "/teachers",
+  majorMore: "/major/:id",
+  majorCrud: "/major/create",
   notFound: "*",
 };
 
@@ -48,6 +57,16 @@ export const DashboardRouteLists = [
     id: 6,
     path: paths.notFound,
     element: <Notfound />,
+  },
+  {
+    id: 7,
+    path: paths.majorCrud,
+    element: <MajorCreate />,
+  },
+  {
+    id: 8,
+    path: paths.majorMore,
+    element: <MajorMore />,
   },
 ];
 export const DashboardNavList = [

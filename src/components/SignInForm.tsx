@@ -2,9 +2,8 @@ import React, { useContext, useState } from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import { Context } from "../context/Context";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import { Login } from "../services/auth";
-import { useNavigate } from "react-router-dom";
 
 interface ValueType {
   username: string;

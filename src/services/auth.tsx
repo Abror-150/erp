@@ -17,6 +17,7 @@ export const Login = (
         setToken(data.data.accessToken);
         location.pathname = "/";
       }, 800);
+      // navigate("/major");
     })
     .catch((err) => {
       setIsLoading(false);
