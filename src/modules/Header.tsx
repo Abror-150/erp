@@ -26,7 +26,7 @@ const Header = () => {
   }
   return (
     <>
-      <div className="bg-[#031529] p-3 border-b-[0.5px] border-slate-600 flex items-center justify-between  ">
+      <div className="bg-[#031529] sticky top-0 z-50 p-3 border-b-[0.5px] border-slate-600 flex items-center justify-between  ">
         <button
           onClick={() => setShowNavbar(!showNavbar)}
           className="text-white cursor-pointer"

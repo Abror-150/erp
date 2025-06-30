@@ -8,7 +8,7 @@ import { Table } from "antd";
 //   address: string;
 // }
 
-const CustomTable: FC<{ columns: any[]; data: any[]; loading: boolean }> = ({
+const CustomTable: FC<{ columns: any[]; data: any[]; loading?: boolean }> = ({
   columns,
   data,
   loading,

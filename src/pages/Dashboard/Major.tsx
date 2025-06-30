@@ -20,7 +20,7 @@ const Major = () => {
     },
     {
       title: "Yaratilgan vaqt",
-      dataIndex: "creadetAt",
+      dataIndex: "createdAt",
     },
     {
       title: "Batafsil",

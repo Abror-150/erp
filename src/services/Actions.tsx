@@ -19,11 +19,12 @@ export const Delete = (
         navigate(-1);
       }, 1000);
     })
-    .catch(() => {
+    .catch((err) => {
       setTimeout(() => {
         setLoading(false);
         setOpenModal(false);
         toast.error("Xatolik bor!");
+        console.log(err.response?.data || err.message);
       }, 800);
     });
 };

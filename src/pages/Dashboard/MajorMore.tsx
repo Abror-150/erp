@@ -1,6 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Context } from "../../context/Context";
 import { Toaster } from "react-hot-toast";
 import {
   ArrowLeftOutlined,
@@ -12,20 +11,37 @@ import { Button, Modal } from "antd";
 import { Delete } from "../../services/Actions";
 import MoreItem from "../../components/MoreItem";
 import { formatTime } from "../../hooks/FormatTime";
-import { API } from "../../hooks/getEnv";
+import { useGetOne } from "../../hooks/useGetOne";
+import { Context } from "../../context/Context";
+import GroupData from "../../components/GroupData";
 
 const MajorMore = () => {
   const { id } = useParams();
-  const { token } = useContext(Context);
   const navigate = useNavigate();
-  const [singleMajor, setSingleMajor] = useState<MajorType>();
-  const [openModal, setOpenModal] = useState<boolean>(false);
-  const [loading, setLoading] = useState(false);
+  const { token } = useContext(Context);
+
+  const { data: singleMajor, loading } = useGetOne<MajorType>(
+    `/stacks/${id}`,
+    id
+  );
+
+  console.log(singleMajor?.image);
+
+  const [openModal, setOpenModal] = React.useState<boolean>(false);
+  const [deleteLoading, setDeleteLoading] = React.useState(false);
 
   function handleDelete() {
-    setLoading(true);
-    Delete(`/stacks/${id}`, token, setOpenModal, setLoading, navigate);
+    setDeleteLoading(true);
+    Delete(
+      `/stacks/${id}`,
+      token,
+
+      setOpenModal,
+      setDeleteLoading,
+      navigate
+    );
   }
+
   return (
     <div className="p-5">
       <Toaster position="top-right" reverseOrder={false} />
@@ -39,7 +55,7 @@ const MajorMore = () => {
               />
             </button>
             <h2 className="text-[22px] font-semibold">
-              {singleMajor?.name ? singleMajor?.name : "Loading..."}
+              {loading ? "Yuklanmoqda..." : singleMajor?.name}
             </h2>
           </div>
           <div className="flex items-center gap-[10px]">
@@ -51,12 +67,17 @@ const MajorMore = () => {
             >
               <DeleteOutlined />
             </Button>
-            <Button className="w-[40px] h-[30px] " type="primary" size="middle">
+            <Button
+              onClick={() => navigate("edit")}
+              className="w-[40px] h-[30px] "
+              type="primary"
+              size="middle"
+            >
               <EditOutlined />
             </Button>
           </div>
         </div>
-        <div>
+        <div className="flex gap-[20px] mt-[30px]">
           <ul className="w-[48%] space-y-[10px] p-3 rounded-md border-[1px] border-slate-400">
             <MoreItem label="#ID" title={singleMajor?.id} />
             <MoreItem label="Nomi" title={singleMajor?.name} />
@@ -69,7 +90,7 @@ const MajorMore = () => {
             <li>
               <img
                 className="object-contain h-[200px]"
-                src={`${API}/file/${singleMajor?.image}`}
+                src={singleMajor?.image}
                 alt=""
                 width={300}
                 height={300}
@@ -78,15 +99,17 @@ const MajorMore = () => {
           </ul>
         </div>
       </div>
+      <GroupData id={id} />
+
       <Modal
-        confirmLoading={loading}
+        confirmLoading={deleteLoading}
         title="Ishonchinggiz komilmi?"
         open={openModal}
         okText="O'chirish"
         cancelText="Bekor qilish"
         onCancel={() => setOpenModal(false)}
         onOk={handleDelete}
-      ></Modal>
+      />
     </div>
   );
 };

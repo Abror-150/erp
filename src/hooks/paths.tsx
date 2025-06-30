@@ -15,6 +15,7 @@ import {
 import Notfound from "../pages/Dashboard/Notfound";
 import { NavLink } from "react-router-dom";
 import MajorMore from "../pages/Dashboard/MajorMore";
+import GroupCreate from "../pages/Dashboard/GroupCreate";
 export const paths = {
   home: "/",
   signIn: "/signIn",
@@ -23,7 +24,10 @@ export const paths = {
   students: "/students",
   teachers: "/teachers",
   majorMore: "/major/:id",
+  majorGroupCreate: "/major/:id/create-group",
+  groupsCreate: "/groups/create",
   majorCrud: "/major/create",
+  majorUpdate: "/major/:id/edit",
   notFound: "*",
 };
 
@@ -67,6 +71,21 @@ export const DashboardRouteLists = [
     id: 8,
     path: paths.majorMore,
     element: <MajorMore />,
+  },
+  {
+    id: 9,
+    path: paths.majorUpdate,
+    element: <MajorCreate />,
+  },
+  {
+    id: 10,
+    path: paths.majorGroupCreate,
+    element: <GroupCreate />,
+  },
+  {
+    id: 11,
+    path: paths.groupsCreate,
+    element: <GroupCreate />,
   },
 ];
 export const DashboardNavList = [
